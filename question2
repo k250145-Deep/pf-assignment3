@@ -1,0 +1,30 @@
+#include<stdio.h>
+int calculatefuel(int fuel, int consumption, int recharge, int solarbonus, int planet, int totalplanets){
+	if(fuel<=0){
+	printf("\nPlanet %d: Fuel Remaining = 0(Fuel exhausted!)\n");
+	return 0;
+} 
+    if(planet>totalplanets)
+    return fuel;
+    fuel -= consumption;
+    fuel += recharge;
+    if(planet%4==0){
+    	fuel += solarbonus;
+	}
+	if(fuel<0) fuel = 0;
+	printf("Planet %d: Fuel Remaining = %d\n",planet,fuel);
+	return calculatefuel(fuel,consumption,recharge,solarbonus,planet+1,totalplanets);
+}
+int main(){
+	int fuel = 500;
+	int consumption = 80;
+	int recharge = 20;
+	int solarbonus = 50;
+	int totalplanets = 7;
+	int finalfuel = calculatefuel(fuel,consumption,recharge,solarbonus,1,totalplanets);
+	if(finalfuel>0)
+	printf("\nMission Completed Successfully! Fuel left is %d\n",finalfuel);
+	else 
+	printf("\nMission failed! Fuel exhausted before completing journey");
+	return 0;
+}
